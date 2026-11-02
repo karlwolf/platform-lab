@@ -20,7 +20,7 @@ jobs:
         run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 
       - name: Trivy config scan (Dockerfile / IaC)
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: config
           scan-ref: .
@@ -31,7 +31,7 @@ jobs:
         run: docker build -t "$IMAGE:${{ github.sha }}" .
 
       - name: Trivy image scan
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.IMAGE }}:${{ github.sha }}
           exit-code: '1'
@@ -39,7 +39,7 @@ jobs:
           ignore-unfixed: true
 
       - name: Generate SBOM
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: image
           image-ref: ${{ env.IMAGE }}:${{ github.sha }}
